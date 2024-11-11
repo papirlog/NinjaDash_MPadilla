@@ -94,7 +94,7 @@ public class characterController : MonoBehaviour
                     float glideAscendLimit = initialHeight - (rb.velocity.y * Time.fixedDeltaTime);
                     if(transform.position.y <= glideAscendLimit)
                     {
-                        rb.velocity = new Vector3(rb.velocity.x, glideLiftForce, rb.velocity.z);
+                        rb.velocity = new Vector3(rb.velocity.x, glideLiftForce * (Time.deltaTime * 10), rb.velocity.z);
                         isAscending = true;
                     }
                 }
