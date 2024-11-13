@@ -6,10 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuButtons : MonoBehaviour
 {
-    [SerializeField] private string playScene;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
-
+    [SerializeField] private GameObject levelSelectMenu;
 
     [SerializeField] GameObject[] virtualCameras;
 
@@ -19,11 +18,35 @@ public class MainMenuButtons : MonoBehaviour
     {
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
+        levelSelectMenu.SetActive(false);
+
+        virtualCameras[0].SetActive(true);
+        virtualCameras[1].SetActive(false);
+        virtualCameras[2].SetActive(false);
+    }
+
+    public void playLevel1()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void playLevel2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void playLevel3()
+    {
+        SceneManager.LoadScene("Level3");
     }
 
     public void playButton()
     {
-        SceneManager.LoadScene(playScene);
+        mainMenu.SetActive(false);
+        levelSelectMenu.SetActive(true);
+
+        virtualCameras[0].SetActive(false);
+        virtualCameras[2].SetActive(true);
     }
 
     public void optionsButton()
@@ -33,6 +56,17 @@ public class MainMenuButtons : MonoBehaviour
 
         virtualCameras[0].SetActive(false);
         virtualCameras[1].SetActive(true);
+    }
+
+    public void returnButton()
+    {
+        levelSelectMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        mainMenu.SetActive(true);
+
+        virtualCameras[1].SetActive(false);
+        virtualCameras[2].SetActive(false);
+        virtualCameras[0].SetActive(true);
     }
 
     public void exitButton()

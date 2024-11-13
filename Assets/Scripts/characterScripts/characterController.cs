@@ -118,7 +118,7 @@ public class characterController : MonoBehaviour
                 }
             }
             //estado de correr para setupear animaciones
-            else if(rb.velocity.y < -0.197)
+            else if(rb.velocity.y < -0.59)
             {
                 animator.SetBool("Jumping", false);
                 animator.SetBool("extraJumping", false);

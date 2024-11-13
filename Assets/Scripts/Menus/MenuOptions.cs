@@ -16,15 +16,6 @@ public class MenuOptions : MonoBehaviour
     public Toggle fullScreenToggle;
     public ResolutionDropdownHandler resolutionDropdownHandler;
 
-    [Header("Return Button")]
-    public Button backButton;
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject optionsMenu;
-
-    [Header ("Camaras")]
-    [SerializeField] GameObject[] virtualCameras;
-
-
     private void Awake()
     {
         masterVolumeSlider.Initialize();
@@ -33,20 +24,5 @@ public class MenuOptions : MonoBehaviour
 
         brightnessSlider.Initialize();
         contrastSlider.Initialize();
-
-        if (backButton != null)
-        {
-            backButton.onClick.AddListener(OnBackButtonPressed);
-        }
-    }
-
-    private void OnBackButtonPressed()
-    { 
-        mainMenu.SetActive(true);
-        optionsMenu.SetActive(false);
-
-        virtualCameras[0].SetActive(true);
-        virtualCameras[1].SetActive(false);
-
     }
 }

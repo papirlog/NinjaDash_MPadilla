@@ -5,7 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
+  - enabled: 1
+    path: "Assets/Scenes/SplashCompa\xF1ia.unity"
+    guid: 02d7288aa2a7629468db5f1b267680fa
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4f8363e18ace6d24f9ef019c61f9965a
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: c761343d1c66404488a4ae741e9fbf05
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: c4c06b32d33a86b499932b5b4f849c54
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
