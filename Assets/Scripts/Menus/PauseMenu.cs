@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +12,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private InputActionReference escape;
 
+    private bool paused;
+    private bool pausedOptions;
+
     private void Awake()
     {
+        paused = false;
+        pausedOptions = false;
+
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
     }
@@ -33,14 +40,20 @@ public class PauseMenu : MonoBehaviour
 
     private void openMenu(InputAction.CallbackContext context)
     {
-        if (pauseMenu.activeSelf)
+        if (pauseMenu.activeSelf && paused == true)
         {
             StartCoroutine(ContinueGame());
         }
-        else
+        else if(paused == false)
         {
             PauseGame();
             pauseMenu.SetActive(true);
+            paused = true;
+        }
+
+        if(optionsMenu.activeSelf && pausedOptions == true)
+        {
+            returnFromOptionsMenu();
         }
     }
 
@@ -54,12 +67,18 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
+        paused = false;
+    }
+
+    private void returnFromOptionsMenu()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
 
     public void continueButton()
     {
-        pauseMenu.SetActive(false);
         StartCoroutine(ContinueGame());
     }
 
@@ -67,10 +86,17 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(true);
+        pausedOptions = true;
     }
 
     public void menuButton()
     {
         SceneManager.LoadScene(playScene);
+    }
+
+    public void returnButton()
+    {
+        optionsMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 }
