@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - parryBarrier
+  - Ground
+  - destroyArrows
+  - FiGlider
+  - Spikes
+  - Arrow
+  - eventWall
+  - Rocket
+  - shurikenCollectionable
+  - Glider
+  - Victory
   layers:
   - Default
   - TransparentFX

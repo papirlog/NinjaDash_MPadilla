@@ -9,6 +9,7 @@ public class characterController : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float fallMultiplier; //multiplicador de caida
     private bool isGrounded = true;
+    private bool stopping = false;
 
     [Header("Jump")]
     [SerializeField] InputActionReference jump;
@@ -78,6 +79,11 @@ public class characterController : MonoBehaviour
     private void HandleMovement()
     {
         rb.velocity = new Vector3(movementSpeed, rb.velocity.y, rb.velocity.z);
+
+        if(stopping && movementSpeed > 0)
+        {
+            movementSpeed -= 0.05f;
+        }
     }
 
     private void HandleFallAndGlide()
@@ -235,6 +241,12 @@ public class characterController : MonoBehaviour
         {
             activeRocket = 100;
             other.gameObject.SetActive(false);
+        }
+
+        if(other.CompareTag("Victory"))
+        {
+            stopping = true;
+            animator.SetBool("winnerDance", true);
         }
     }
 

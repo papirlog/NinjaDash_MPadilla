@@ -91,7 +91,8 @@ public class PauseMenu : MonoBehaviour
 
     public void menuButton()
     {
-        SceneManager.LoadScene(playScene);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(playScene, LoadSceneMode.Single);
     }
 
     public void returnButton()

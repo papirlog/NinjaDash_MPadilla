@@ -43,7 +43,7 @@ public class NavigateToAfterTimeOrPress : MonoBehaviour
     void NavigateToNextScreen()
     {
         skipActionActive = false;
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
 
 }
