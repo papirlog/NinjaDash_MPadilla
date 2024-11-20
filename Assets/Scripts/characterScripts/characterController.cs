@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class characterController : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class characterController : MonoBehaviour
 
     [Header("Otros")]
     [SerializeField] Transform cameraGameObject;
+    [SerializeField] GameObject VictoryMenu;
     private VirtualCamerasScript virtualcamerascript;
     private Rigidbody rb;
     private Animator animator;
@@ -247,6 +249,7 @@ public class characterController : MonoBehaviour
         {
             stopping = true;
             animator.SetBool("winnerDance", true);
+            VictoryMenu.gameObject.SetActive(true);
         }
     }
 
