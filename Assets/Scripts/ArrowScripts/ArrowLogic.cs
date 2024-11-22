@@ -35,6 +35,7 @@ public class ArrowLogic : MonoBehaviour
     {
         if(other.CompareTag("parryBarrier"))
         {
+            Debug.Log("aaaa");
             other.GetComponentInParent<characterController>().EnableExtraJump();
             Destroy(gameObject);
         }
