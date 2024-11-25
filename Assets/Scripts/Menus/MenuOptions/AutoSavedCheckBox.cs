@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class AutoSavedCheckBox : MonoBehaviour
 {
     public string prefKey;
     public bool defaultValue = false;
-    protected Toggle toggle;
+    private bool toggleChecked = true;
+    [SerializeField] Toggle toggle;
 
     protected virtual void InternalValueChanged(bool value) { }
 
@@ -17,8 +19,22 @@ public class AutoSavedCheckBox : MonoBehaviour
         InternalValueChanged(toggle.isOn);
     }
 
+    private void Start()
+    {
+        InternalValueChanged(toggleChecked);
+    }
+
     private void OnToggleValueChanged(bool value)
     {
+        if (toggleChecked == true)
+        {
+            toggleChecked = false;
+        }
+        else
+        {
+            toggleChecked = true;
+        }
+
         PlayerPrefs.SetInt(prefKey, value ? 1 : 0);
         PlayerPrefs.Save();
         InternalValueChanged(value);
