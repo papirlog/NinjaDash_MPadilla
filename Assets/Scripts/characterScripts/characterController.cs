@@ -35,10 +35,18 @@ public class characterController : MonoBehaviour
     private bool especialStateGliding = false;
     private float activeRocket = 0; //combustible del ala delta
 
+    [Header("PrefKeys")]
+    [SerializeField] private string prefKeyShurikens;
+    [SerializeField] private string prefKeySkin;
+
+    [Header("Skins")]
+    [SerializeField] GameObject[] skinsCharacter;  //skins en la heriarchy
+    [SerializeField] int skinActive;
+
     [Header("Otros")]
     [SerializeField] Transform cameraGameObject;
     [SerializeField] GameObject VictoryMenu;
-    private VirtualCamerasScript virtualcamerascript;
+    private VirtualCamerasScript virtualcamerasscript;
     private Rigidbody rb;
     private Animator animator;
     private CapsuleCollider characterCollider;
@@ -47,8 +55,14 @@ public class characterController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        virtualcamerascript = cameraGameObject.GetComponent<VirtualCamerasScript>();
+        virtualcamerasscript = cameraGameObject.GetComponent<VirtualCamerasScript>();
         characterCollider = GetComponent<CapsuleCollider>();
+
+        //Iniciar skin
+        //skinActive = PlayerPrefs.GetInt(prefKeySkin);
+        //skinsCharacter[skinActive].SetActive(true);
+
+        //Debug.Log(skinActive);
     }
 
     private void OnEnable()
@@ -217,7 +231,7 @@ public class characterController : MonoBehaviour
             transform.rotation *= rotation;
             rb.velocity = new Vector3(rb.velocity.x, eventWallJumpForce, rb.velocity.z);
             movementSpeed = -movementSpeed;
-            virtualcamerascript.changeVirtualCamera();
+            virtualcamerasscript.changeVirtualCamera();  //Para cambiar de camaras
         }
 
         // Detecta para entrar en el modo especial
@@ -250,6 +264,7 @@ public class characterController : MonoBehaviour
             stopping = true;
             animator.SetBool("winnerDance", true);
             VictoryMenu.gameObject.SetActive(true);
+            PlayerPrefs.SetInt(prefKeyShurikens, shurikenScript.shurikensCollectedInThisTry);
         }
     }
 

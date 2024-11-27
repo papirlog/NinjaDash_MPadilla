@@ -9,7 +9,9 @@ public class MainMenuButtons : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject levelSelectMenu;
+    [SerializeField] private GameObject skinSelectMenu;
     [SerializeField] private GameObject creditsMenu;
+
 
     [SerializeField] GameObject[] virtualCameras;
 
@@ -20,6 +22,7 @@ public class MainMenuButtons : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
         levelSelectMenu.SetActive(false);
+        skinSelectMenu.SetActive(false);
 
         virtualCameras[0].SetActive(true);
         virtualCameras[1].SetActive(false);
@@ -59,21 +62,23 @@ public class MainMenuButtons : MonoBehaviour
         virtualCameras[1].SetActive(true);
     }
 
+    public void skinsButton()
+    {
+        mainMenu.SetActive(false);
+        skinSelectMenu.SetActive(true);
+    }
+
     public void returnButton()
     {
-        levelSelectMenu.SetActive(false);
         optionsMenu.SetActive(false);
+        levelSelectMenu.SetActive(false);
+        skinSelectMenu.SetActive(false);
+        creditsMenu.SetActive(false);
         mainMenu.SetActive(true);
 
         virtualCameras[1].SetActive(false);
         virtualCameras[2].SetActive(false);
         virtualCameras[0].SetActive(true);
-    }
-
-    public void returnFromCreditsButton()
-    {
-        creditsMenu.SetActive(false);
-        mainMenu.SetActive(true);
     }
 
     public void creditsButton()

@@ -68,6 +68,7 @@ public class characterRespawn : MonoBehaviour
     //Funcion para reiniciar la escena
     private void functionCharacterRespawn()
     {
+        shurikenScript.shurikensCollectedInThisTry = 0;
         isAlive = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

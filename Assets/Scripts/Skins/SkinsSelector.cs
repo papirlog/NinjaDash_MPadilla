@@ -8,7 +8,7 @@ public class SkinsSelector : MonoBehaviour
 {
     [SerializeField] private GameObject[] skins;
 
-    private string prefKey;
+    [SerializeField] public string prefKeySkin;
 
     private int skinR;
 
@@ -38,15 +38,14 @@ public class SkinsSelector : MonoBehaviour
 
     public void Initialize()
     {
-        skinR = PlayerPrefs.GetInt(prefKey, 0);
+        skinR = PlayerPrefs.GetInt(prefKeySkin, 0);
 
         skins[skinR].SetActive(true);
     }
 
     private void saveSkin(int value)
     {
-        PlayerPrefs.SetFloat(prefKey, value);
+        PlayerPrefs.SetInt(prefKeySkin, value);
         PlayerPrefs.Save();
     }
-
 }

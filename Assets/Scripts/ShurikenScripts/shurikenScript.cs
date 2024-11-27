@@ -6,7 +6,7 @@ public class shurikenScript : MonoBehaviour
 {
     [SerializeField] private float rotationSpeedShuriken;
 
-    static private int shurikensCollectedInThisTry;
+    static public int shurikensCollectedInThisTry;
 
     private void Awake()
     {
