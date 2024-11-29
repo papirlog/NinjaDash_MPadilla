@@ -1,42 +1,39 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class AutoSavedCheckBox : MonoBehaviour
 {
-    public string prefKey;
+    public string prefKey = "FullscreenToggle";
     public bool defaultValue = false;
-    private bool toggleChecked = true;
     [SerializeField] Toggle toggle;
 
     protected virtual void InternalValueChanged(bool value) { }
 
     public void Initialize()
     {
-        toggle = GetComponent<Toggle>();
-        toggle.onValueChanged.AddListener(OnToggleValueChanged);
-        toggle.isOn = PlayerPrefs.GetInt(prefKey, defaultValue ? 1 : 0) == 1;
+        bool isFullscreen = PlayerPrefs.GetInt(prefKey, defaultValue ? 1 : 0) == 1;
+
+        toggle.isOn = isFullscreen;
+
+        Screen.fullScreen = isFullscreen;
+
         InternalValueChanged(toggle.isOn);
+
+        toggle.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
     private void Start()
     {
-        InternalValueChanged(toggleChecked);
+        Initialize();
     }
 
     private void OnToggleValueChanged(bool value)
     {
-        if (toggleChecked == true)
-        {
-            toggleChecked = false;
-        }
-        else
-        {
-            toggleChecked = true;
-        }
+        Screen.fullScreen = value;
 
         PlayerPrefs.SetInt(prefKey, value ? 1 : 0);
         PlayerPrefs.Save();
+
         InternalValueChanged(value);
     }
 }
