@@ -10,6 +10,9 @@ public class characterRespawn : MonoBehaviour
     //Timer para respawnear
     [SerializeField] private float respawnTime;
 
+    public AudioClip deathSound;
+    private AudioSource audioSource;
+
     private Rigidbody rb;
     private Animator animator;
 
@@ -17,6 +20,7 @@ public class characterRespawn : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,6 +51,7 @@ public class characterRespawn : MonoBehaviour
     {
         if(isAlive)
         {
+            audioSource.PlayOneShot(deathSound);
             isAlive = false;
             StartCoroutine(HandleRespawn());
         }

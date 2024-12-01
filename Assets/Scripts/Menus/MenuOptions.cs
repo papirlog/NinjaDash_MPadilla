@@ -11,8 +11,6 @@ public class MenuOptions : MonoBehaviour
     public AutoSavedSlider_ForAudio musicVolumeSlider;
 
     [Header("Graphics Settings")]
-    public AutoSavedSlider_Bright brightnessSlider;
-    public AutoSavedSlider_Contrast contrastSlider;
     public Toggle fullScreenToggle;
     public ResolutionDropdownHandler resolutionDropdownHandler;
 
@@ -21,8 +19,5 @@ public class MenuOptions : MonoBehaviour
         masterVolumeSlider.Initialize();
         sfxVolumeSlider.Initialize();
         musicVolumeSlider.Initialize();
-
-        brightnessSlider.Initialize();
-        contrastSlider.Initialize();
     }
 }

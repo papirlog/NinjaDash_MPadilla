@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -43,6 +44,9 @@ public class characterController : MonoBehaviour
     [SerializeField] GameObject[] skinsCharacter;  //skins en la heriarchy
     [SerializeField] int skinActive;
 
+    [Header("SFX")]
+    public AudioClip jumpSound;
+
     [Header("Otros")]
     [SerializeField] Transform cameraGameObject;
     [SerializeField] GameObject VictoryMenu;
@@ -50,6 +54,7 @@ public class characterController : MonoBehaviour
     private Rigidbody rb;
     private Animator animator;
     private CapsuleCollider characterCollider;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -57,6 +62,7 @@ public class characterController : MonoBehaviour
         animator = GetComponent<Animator>();
         virtualcamerasscript = cameraGameObject.GetComponent<VirtualCamerasScript>();
         characterCollider = GetComponent<CapsuleCollider>();
+        audioSource = GetComponent<AudioSource>();
 
         //Iniciar skin
         //skinActive = PlayerPrefs.GetInt(prefKeySkin);
@@ -180,11 +186,13 @@ public class characterController : MonoBehaviour
         if(isGrounded && characterRespawn.isAlive)
         {
             CharacterJump();
+            audioSource.PlayOneShot(jumpSound);
         }
         else if(!isGrounded && hasExtraJump)
         {
             PerformExtraJump();
             extraJumpParticles.SetActive(true);
+            audioSource.PlayOneShot(jumpSound);
         }
     }
 
