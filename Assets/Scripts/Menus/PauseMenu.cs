@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private InputActionReference escape;
+    [SerializeField] AudioSource music;
 
     private bool paused;
     private bool pausedOptions;
@@ -59,6 +60,7 @@ public class PauseMenu : MonoBehaviour
 
     private void PauseGame()
     {
+        music.Pause();
         Time.timeScale = 0f;
     }
 
@@ -66,6 +68,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         yield return new WaitForSecondsRealtime(1f);
+        music.UnPause();
         Time.timeScale = 1f;
         paused = false;
     }

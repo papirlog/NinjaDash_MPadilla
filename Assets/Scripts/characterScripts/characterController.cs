@@ -42,6 +42,7 @@ public class characterController : MonoBehaviour
 
     [Header("Skins")]
     [SerializeField] GameObject[] skinsCharacter;  //skins en la heriarchy
+    [SerializeField] Animator[] animatorCharacters;
     [SerializeField] int skinActive;
 
     [Header("SFX")]
@@ -55,6 +56,7 @@ public class characterController : MonoBehaviour
     private Animator animator;
     private CapsuleCollider characterCollider;
     private AudioSource audioSource;
+    private Animator characterAnimator;
 
     private void Awake()
     {
@@ -64,11 +66,56 @@ public class characterController : MonoBehaviour
         characterCollider = GetComponent<CapsuleCollider>();
         audioSource = GetComponent<AudioSource>();
 
-        //Iniciar skin
-        //skinActive = PlayerPrefs.GetInt(prefKeySkin);
-        //skinsCharacter[skinActive].SetActive(true);
 
-        //Debug.Log(skinActive);
+        //Iniciar skin
+        characterAnimator = GetComponent<Animator>();
+        skinActive = PlayerPrefs.GetInt(prefKeySkin);
+        SetSkin(skinActive);
+    }
+
+    private void SetSkin(int index)
+    {
+        for (int i = 0; i < skinsCharacter.Length; i++)
+        {
+            skinsCharacter[i].SetActive(false);
+        }
+
+        skinsCharacter[index].SetActive(true);
+
+        if (animatorCharacters[index] != null)
+        {
+            // Cambiar el Animator Controller del personaje
+            characterAnimator.runtimeAnimatorController = animatorCharacters[index].runtimeAnimatorController;
+        }
+
+        UpdateAnimatorParameters();
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        characterAnimator.SetBool("Jumping", false);
+        characterAnimator.SetBool("Falling", false);
+        characterAnimator.SetBool("groundParry", false);
+        characterAnimator.SetBool("airParry", false);
+        characterAnimator.SetBool("eventWall", false);
+        characterAnimator.SetBool("Gliding", false);
+        characterAnimator.SetBool("winnerDance", false);
+    }
+
+    public void ChangeToGrayFoxSkin()
+    {
+        SetSkin(0);
+    }
+
+    public void ChangeToBlackAlienSkin()
+    {
+        SetSkin(1);
+    }
+
+    public void Initialize()
+    {
+        skinActive = PlayerPrefs.GetInt(prefKeySkin, 0);
+        SetSkin(skinActive);
     }
 
     private void OnEnable()
@@ -148,9 +195,8 @@ public class characterController : MonoBehaviour
             //estado de correr para setupear animaciones
             else if(rb.velocity.y < -0.59)
             {
-                animator.SetBool("Jumping", false);
-                animator.SetBool("extraJumping", false);
-                animator.SetBool("Falling", true);
+                characterAnimator.SetBool("Jumping", false);
+                characterAnimator.SetBool("Falling", true);
             }
         }
         else if(especialStateGliding)
@@ -165,7 +211,7 @@ public class characterController : MonoBehaviour
         if (!isParrying && characterRespawn.isAlive && !especialStateGliding)
         {
             isParrying = true;
-            animator.SetBool(isGrounded ? "groundParry" : "airParry", true);
+            characterAnimator.SetBool(isGrounded ? "groundParry" : "airParry", true);
             parryBarrier.SetActive(true);
             StartCoroutine(ParryTimerCount(parryDuration));
         }
@@ -177,8 +223,8 @@ public class characterController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isParrying = false;
         parryBarrier.SetActive(false);
-        animator.SetBool("groundParry", false);
-        animator.SetBool("airParry", false);
+        characterAnimator.SetBool("groundParry", false);
+        characterAnimator.SetBool("airParry", false);
     }
 
     private void OnJump(InputAction.CallbackContext context)
@@ -188,7 +234,7 @@ public class characterController : MonoBehaviour
             CharacterJump();
             audioSource.PlayOneShot(jumpSound);
         }
-        else if(!isGrounded && hasExtraJump)
+        else if(!isGrounded && hasExtraJump && !especialStateGliding)
         {
             PerformExtraJump();
             extraJumpParticles.SetActive(true);
@@ -201,7 +247,7 @@ public class characterController : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         isGrounded = false;
-        animator.SetBool("Jumping", true);
+        characterAnimator.SetBool("Jumping", true);
     }
 
     // Salto extra
@@ -222,7 +268,7 @@ public class characterController : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
                 isGrounded = true;
-                animator.SetBool("Falling", false);
+                characterAnimator.SetBool("Falling", false);
                 extraJumpParticles.SetActive(false);
             }
         }
@@ -234,7 +280,7 @@ public class characterController : MonoBehaviour
         if(other.CompareTag("eventWall"))
         {
             // Y este para hacer la animación del eventWall más rotar el personaje
-            animator.SetTrigger("eventWall");
+            characterAnimator.SetTrigger("eventWall");
             Quaternion rotation = Quaternion.Euler(0, 180, 0);
             transform.rotation *= rotation;
             rb.velocity = new Vector3(rb.velocity.x, eventWallJumpForce, rb.velocity.z);
@@ -246,7 +292,7 @@ public class characterController : MonoBehaviour
         if(other.CompareTag("Glider"))
         {
             initialHeight = transform.position.y;
-            animator.SetBool("Gliding", true);
+            characterAnimator.SetBool("Gliding", true);
             characterGlider.SetActive(true);
             especialStateGliding = true;
             characterCollider.enabled = false;
@@ -254,7 +300,7 @@ public class characterController : MonoBehaviour
         }
         else if(other.CompareTag("FiGlider"))
         {
-            animator.SetBool("Gliding", false);
+            characterAnimator.SetBool("Gliding", false);
             characterGlider.SetActive(false);
             especialStateGliding = false;
             characterCollider.enabled = true;
@@ -270,7 +316,7 @@ public class characterController : MonoBehaviour
         if(other.CompareTag("Victory"))
         {
             stopping = true;
-            animator.SetBool("winnerDance", true);
+            characterAnimator.SetBool("winnerDance", true);
             VictoryMenu.gameObject.SetActive(true);
             PlayerPrefs.SetInt(prefKeyShurikens, shurikenScript.shurikensCollectedInThisTry);
         }

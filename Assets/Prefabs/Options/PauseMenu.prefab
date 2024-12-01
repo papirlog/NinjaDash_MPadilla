@@ -858,8 +858,6 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 3852657172846526461}
   sfxVolumeSlider: {fileID: 192402665225814285}
   musicVolumeSlider: {fileID: 3808469067797247911}
-  brightnessSlider: {fileID: 0}
-  contrastSlider: {fileID: 0}
   fullScreenToggle: {fileID: 8717217867130867544}
   resolutionDropdownHandler: {fileID: 768249202513109933}
 --- !u!1 &1161690565422813480
@@ -2518,6 +2516,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 7475110419434093514}
   optionsMenu: {fileID: 989250259943260071}
   escape: {fileID: -1541716203094107822, guid: f5c1329d67370474abec6ed46498e157, type: 3}
+  music: {fileID: 0}
 --- !u!1 &3269884182194111115
 GameObject:
   m_ObjectHideFlags: 0
@@ -4197,6 +4196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780948936608365249}
+  - component: {fileID: 8044241327753824510}
   m_Layer: 0
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -4222,6 +4222,23 @@ Transform:
   - {fileID: 1731347129723794435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8044241327753824510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8991045356435844745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdafa55856f8bab449aad270693ac96c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolumeSlider: {fileID: 3852657172846526461}
+  sfxVolumeSlider: {fileID: 192402665225814285}
+  musicVolumeSlider: {fileID: 3808469067797247911}
+  fullScreenToggle: {fileID: 8717217867130867544}
+  resolutionDropdownHandler: {fileID: 768249202513109933}
 --- !u!1 &9202608982926796683
 GameObject:
   m_ObjectHideFlags: 0

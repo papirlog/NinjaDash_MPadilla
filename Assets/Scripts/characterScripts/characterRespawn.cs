@@ -13,6 +13,12 @@ public class characterRespawn : MonoBehaviour
     public AudioClip deathSound;
     private AudioSource audioSource;
 
+    [SerializeField] Animator[] animatorCharacters;
+    private Animator characterAnimator;
+
+    [SerializeField] GameObject[] skinsCharacter;
+    [SerializeField] int skinActive;
+
     private Rigidbody rb;
     private Animator animator;
 
@@ -21,7 +27,25 @@ public class characterRespawn : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        characterAnimator = GetComponent<Animator>();
+
+        //SetSkin(skinActive);
     }
+
+    //private void SetSkin(int index)
+    //{
+    //    for (int i = 0; i < skinsCharacter.Length; i++)
+    //    {
+    //        skinsCharacter[i].SetActive(false);
+    //    }
+
+    //    //skinsCharacter[index].SetActive(true);
+
+    //    if (index >= 0 && index < animatorCharacters.Length)
+    //    {
+    //        characterAnimator.runtimeAnimatorController = animatorCharacters[index].runtimeAnimatorController;
+    //    }
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {

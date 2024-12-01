@@ -12,28 +12,28 @@ public class SkinsSelector : MonoBehaviour
 
     private int skinR;
 
-    public void skinDefault()
+    public void skinGrayFox()
     {
-        for(int i = 0; i < skins.Length; i++)
-        {
-            skins[i].SetActive(false);
-        }
-
-        skins[0].SetActive(true);
-
-        saveSkin(0);
+        setSkin(0);
     }
 
-    public void skinWhite()
+    public void skinBlackAlien()
+    {
+        setSkin(1);
+    }
+
+    private void setSkin(int index)
     {
         for (int i = 0; i < skins.Length; i++)
         {
             skins[i].SetActive(false);
         }
 
-        skins[1].SetActive(true);
-
-        saveSkin(1);
+        if (index >= 0 && index < skins.Length)
+        {
+            skins[index].SetActive(true);
+            saveSkin(index);
+        }
     }
 
     public void Initialize()
